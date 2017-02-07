@@ -6,8 +6,10 @@ using UnityEngine.UI;
 
 public class WeaponSelectorController : MonoBehaviour {
 
-	public float WeaponNumber = 0.0f;
+	public int WeaponNumber = 0;
+	public int WeaponSelector = 0;
 	public float time = 0.0f;
+	public int frameselector = 0;
 	public GameObject Camera1;
 	public GameObject Camera2;
 	public GameObject FrameSpawn;
@@ -39,16 +41,19 @@ public class WeaponSelectorController : MonoBehaviour {
 		DamageSlider = GameObject.Find ("DamageSlider").GetComponent<Slider> ();
 		GameObject FrameSelectorObject = GameObject.Find ("FrameSelectController");
 		FrameSelectorController FSC = FrameSelectorObject.GetComponent<FrameSelectorController> ();
+		frameselector = FSC.FrameSelector;
+		Debug.Log (FSC.FrameSelector + " This is the selected frame from the FrameSelectorController");
+		Debug.Log(frameselector + " This is from the current Weapon Selector for frame selection");
 
-		if (FSC.FrameSelector == 1) {
+		if (frameselector == 1) {
 			GameObject LightFrameI = Instantiate (LightFrame);
 			LightFrameI.gameObject.transform.position = FrameSpawn.transform.position;
 		} else {
-			if (FSC.FrameSelector == 2) {
+			if (frameselector == 2) {
 				GameObject MediumFrameI = Instantiate (MediumFrame);
 				MediumFrameI.gameObject.transform.position = FrameSpawn.transform.position;
 			} else {
-				if (FSC.FrameSelector == 3) {
+				if (frameselector == 3) {
 					GameObject HeavyFrameI = Instantiate (HeavyFrame);
 					HeavyFrameI.gameObject.transform.position = FrameSpawn.transform.position;
 				}
@@ -176,6 +181,27 @@ public class WeaponSelectorController : MonoBehaviour {
 		} else {
 			backbutton.gameObject.SetActive (true);
 		}
+	}
+
+
+	public void SelectButton(){
+		switch (WeaponNumber) {
+		case 0:
+			WeaponSelector = 0;
+			break;
+		case 1:
+			WeaponSelector = 1;
+			break;
+		case 2:
+			WeaponSelector = 2;
+			break;
+		case 3:
+			WeaponSelector = 3;
+			break;
+		}
+		DontDestroyOnLoad (this);
+		DestroyObject (GameObject.FindGameObjectWithTag ("FrameSelectController"));
+		SceneManager.LoadScene ("TutorialLevel", LoadSceneMode.Single);
 	}
 
 }
