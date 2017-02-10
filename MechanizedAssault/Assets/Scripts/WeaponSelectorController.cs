@@ -45,20 +45,21 @@ public class WeaponSelectorController : MonoBehaviour {
 		Debug.Log (FSC.FrameSelector + " This is the selected frame from the FrameSelectorController");
 		Debug.Log(frameselector + " This is from the current Weapon Selector for frame selection");
 
-		if (frameselector == 1) {
+		switch (frameselector) {
+		case 1:
 			GameObject LightFrameI = Instantiate (LightFrame);
 			LightFrameI.gameObject.transform.position = FrameSpawn.transform.position;
-		} else {
-			if (frameselector == 2) {
-				GameObject MediumFrameI = Instantiate (MediumFrame);
-				MediumFrameI.gameObject.transform.position = FrameSpawn.transform.position;
-			} else {
-				if (frameselector == 3) {
-					GameObject HeavyFrameI = Instantiate (HeavyFrame);
-					HeavyFrameI.gameObject.transform.position = FrameSpawn.transform.position;
-				}
-			}
+			break;
+		case 2:
+			GameObject MediumFrameI = Instantiate (MediumFrame);
+			MediumFrameI.gameObject.transform.position = FrameSpawn.transform.position;
+			break;
+		case 3:
+			GameObject HeavyFrameI = Instantiate (HeavyFrame);
+			HeavyFrameI.gameObject.transform.position = FrameSpawn.transform.position;
+			break;
 		}
+		GameObject.Destroy(GameObject.FindGameObjectWithTag("FrameSelectController"));
 
 		GameObject SMGI = Instantiate(SMG);
 		SMGI.gameObject.transform.position = WeaponSpawn.transform.position;
@@ -201,7 +202,7 @@ public class WeaponSelectorController : MonoBehaviour {
 		}
 		DontDestroyOnLoad (this);
 		DestroyObject (GameObject.FindGameObjectWithTag ("FrameSelectController"));
-		SceneManager.LoadScene ("TutorialLevel", LoadSceneMode.Single);
+		SceneManager.LoadScene ("SecondaryWeaponSelection Scene", LoadSceneMode.Single);
 	}
 
 }

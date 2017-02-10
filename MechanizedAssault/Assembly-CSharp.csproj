@@ -48,6 +48,8 @@
   <ItemGroup>
      <Compile Include="Assets\Scripts\FrameSelectorController.cs" />
      <Compile Include="Assets\Scripts\MenuController.cs" />
+     <Compile Include="Assets\Scripts\ShoulderWeaponSelector.cs" />
+     <Compile Include="Assets\Scripts\TutorialLevelController.cs" />
      <Compile Include="Assets\Scripts\WeaponSelectorController.cs" />
      <None Include="Assets\Standard Assets\Effects\GlassRefraction\Shaders\GlassStainedBumpDistort.shader" />
      <None Include="Assets\Standard Assets\Effects\ImageEffects\Shaders\_BloomAndFlares\BlendOneOne.shader" />
