@@ -24,6 +24,7 @@ public class FrameSelectorController : MonoBehaviour {
 	public Slider SpeedSlider;
 	public Slider FlightSpeedSlider;
 	public GameObject FrameSpawn;
+	private GameObject PlayerCamera;
 
 
 	void Start () {
@@ -42,6 +43,8 @@ public class FrameSelectorController : MonoBehaviour {
 	public void LightFrameSelect(){
 		GameObject LightFrameI = Instantiate (LightFrame);
 		LightFrameI.gameObject.transform.position = FrameSpawn.transform.position;
+		PlayerCamera = GameObject.FindGameObjectWithTag ("PlayerCamera");
+		PlayerCamera.SetActive (false);
 		FrameType.text = ("M.I.S.C.U. Dash");
 
 		WeightSlider.value = 20;
@@ -70,6 +73,8 @@ public class FrameSelectorController : MonoBehaviour {
 	public void MediumFrameSelect(){
 		GameObject MediumFrameI = Instantiate (MediumFrame);
 		MediumFrameI.gameObject.transform.position = FrameSpawn.transform.position;
+		PlayerCamera = GameObject.FindGameObjectWithTag ("PlayerCamera");
+		PlayerCamera.SetActive (false);
 		FrameType.text = ("M.I.S.C.U. Assault");
 
 		WeightSlider.value = 27;
@@ -98,6 +103,8 @@ public class FrameSelectorController : MonoBehaviour {
 	public void HeavyFrameSelect(){
 		GameObject HeavyFrameI = Instantiate (HeavyFrame);
 		HeavyFrameI.gameObject.transform.position = FrameSpawn.transform.position;
+		PlayerCamera = GameObject.FindGameObjectWithTag ("PlayerCamera");
+		PlayerCamera.SetActive (false);
 		FrameType.text = ("M.I.S.C.U. Support");
 
 		WeightSlider.value = 40;

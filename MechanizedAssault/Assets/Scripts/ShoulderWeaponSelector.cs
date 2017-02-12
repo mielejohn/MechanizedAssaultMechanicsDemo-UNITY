@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class ShoulderWeaponSelector : MonoBehaviour {
 
@@ -9,12 +10,14 @@ public class ShoulderWeaponSelector : MonoBehaviour {
 	public int FramePick = 0;
 	public int WeaponPick = 0;
 	public int ShoulderSelect = 0;
+	//public int ShoulderSelector = 0;
 	public GameObject Camera1;
 	public GameObject Camera2;
 	//Frames
 	public GameObject LightFrame;
 	public GameObject MediumFrame;
 	public GameObject HeavyFrame;
+	private GameObject PlayerCamera;
 	//Weapons
 	public GameObject AssaultRifle;
 	public GameObject SMG;
@@ -30,8 +33,8 @@ public class ShoulderWeaponSelector : MonoBehaviour {
 	public Text AmmoCapacity;
 	//Spawns
 	public GameObject SpawnPoint;
-	public GameObject WeaponSpawn;
-	public GameObject ShoulderSpawn;
+	private GameObject WeaponSpawn;
+	private GameObject ShoulderSpawn;
 	//buttons
 	public Text nextbutton;
 	public Text backbutton;
@@ -63,7 +66,11 @@ public class ShoulderWeaponSelector : MonoBehaviour {
 			HeavyFrameI.gameObject.transform.position = SpawnPoint.transform.position;
 			break;
 		}
+		PlayerCamera = GameObject.FindGameObjectWithTag ("PlayerCamera");
+		PlayerCamera.SetActive (false);
 
+		WeaponSpawn = GameObject.FindGameObjectWithTag("WeaponSpawn");
+		ShoulderSpawn = GameObject.FindGameObjectWithTag ("ShoulderSpawn");
 		switch (WeaponPick) {
 		case 0:
 			GameObject SMGI = Instantiate (SMG);
@@ -117,7 +124,7 @@ public class ShoulderWeaponSelector : MonoBehaviour {
 	}
 
 	public void BackButton(){
-		ShoulderSelect += 1;
+		ShoulderSelect -= 1;
 		WeaponNumberPick ();
 	}
 
@@ -170,5 +177,33 @@ public class ShoulderWeaponSelector : MonoBehaviour {
 				} 
 			}
 		}
+
+		if (ShoulderSelect >= 2) {
+			nextbutton.gameObject.SetActive (false);
+		} else {
+			nextbutton.gameObject.SetActive (true);
+		}
+
+		if (ShoulderSelect <= 0) {
+			backbutton.gameObject.SetActive (false);
+		} else {
+			backbutton.gameObject.SetActive (true);
+		}
+	}
+
+	public void SelectButton(){
+		switch (ShoulderSelect) {
+		case 0:
+			ShoulderSelect = 0;
+			break;
+		case 1:
+			ShoulderSelect = 1;
+			break;
+		case 2:
+			ShoulderSelect = 2;
+			break;
+		}
+		DontDestroyOnLoad (this);
+		SceneManager.LoadScene ("TutorialLevel", LoadSceneMode.Single);
 	}
 }

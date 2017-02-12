@@ -13,12 +13,13 @@ public class WeaponSelectorController : MonoBehaviour {
 	public GameObject Camera1;
 	public GameObject Camera2;
 	public GameObject FrameSpawn;
-	public GameObject WeaponSpawn;
+	private GameObject WeaponSpawn;
 	//public FrameSelectorController FSC;
 	//FrameModels
 	public GameObject LightFrame;	
 	public GameObject MediumFrame;
 	public GameObject HeavyFrame;
+	private GameObject PlayerCamera;
 	//Weapon GameObjects
 	public GameObject SMG;
 	public GameObject AssaultRifle;
@@ -45,6 +46,7 @@ public class WeaponSelectorController : MonoBehaviour {
 		Debug.Log (FSC.FrameSelector + " This is the selected frame from the FrameSelectorController");
 		Debug.Log(frameselector + " This is from the current Weapon Selector for frame selection");
 
+	
 		switch (frameselector) {
 		case 1:
 			GameObject LightFrameI = Instantiate (LightFrame);
@@ -59,7 +61,10 @@ public class WeaponSelectorController : MonoBehaviour {
 			HeavyFrameI.gameObject.transform.position = FrameSpawn.transform.position;
 			break;
 		}
+		PlayerCamera = GameObject.FindGameObjectWithTag ("PlayerCamera");
+		PlayerCamera.SetActive (false);
 		GameObject.Destroy(GameObject.FindGameObjectWithTag("FrameSelectController"));
+		WeaponSpawn = GameObject.FindGameObjectWithTag ("WeaponSpawn");
 
 		GameObject SMGI = Instantiate(SMG);
 		SMGI.gameObject.transform.position = WeaponSpawn.transform.position;
