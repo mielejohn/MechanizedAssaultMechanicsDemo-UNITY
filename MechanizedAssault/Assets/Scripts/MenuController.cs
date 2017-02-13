@@ -12,7 +12,7 @@ public class MenuController : MonoBehaviour {
 	}
 
 	public void ImmediateSceneChange(){
-		SceneManager.LoadScene ("FrameScelection Scene", LoadSceneMode.Single);
+		SceneManager.LoadScene ("SingleSelectorScene", LoadSceneMode.Single);
 	}
 
 }
