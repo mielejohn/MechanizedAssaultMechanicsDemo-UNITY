@@ -24,6 +24,7 @@ public class SingleSelectController : MonoBehaviour {
 	private GameObject PlayerCamera;
 
 	//Weapon Items
+	private GameObject WeaponItems;
 	private GameObject WeaponSelection;
 	public GameObject SMG;
 	public GameObject AssaultRifle;
@@ -40,8 +41,16 @@ public class SingleSelectController : MonoBehaviour {
 	private Text WeaponType;
 
 	//Shoulder Items
+	private GameObject ShoulderItems;
+	public int ShoulderSelector;
+	private GameObject ShoulderSpawn;
 	private GameObject CameraThreeAnimated;
 	private GameObject CameraFourStable;
+	public GameObject EnergyShot;
+	public GameObject MultiMissle;
+	public GameObject QuickShot;
+	private Text Shouldernextbutton;
+	private Text Shoulderbackbutton;
 
 	//Stat Items
 	//Item1 is Weight
@@ -65,6 +74,8 @@ public class SingleSelectController : MonoBehaviour {
 
 	void Start () {
 		FrameItems = GameObject.FindGameObjectWithTag ("FrameSelectionItems");
+		ShoulderItems = GameObject.FindGameObjectWithTag ("ShoulderSelectionItems");
+		ShoulderItems.gameObject.SetActive (false);
 		FrameType = GameObject.FindGameObjectWithTag ("FrameType").GetComponent<Text> ();
 		ScreenTitle = GameObject.FindGameObjectWithTag ("Title").GetComponent<Text> ();
 		ScreenTitle.text = ("Select your frame");
@@ -217,19 +228,19 @@ public class SingleSelectController : MonoBehaviour {
 
 	IEnumerator AnimationStart(){
 		Debug.Log ("AnimationStart");
-		WeaponStartingLoad ();
 		CameraWeaponOneAnimated.gameObject.SetActive (true);
 		yield return new WaitForSeconds (2);
+		WeaponStartingLoad ();
 		CameraWeaponOneAnimated.gameObject.SetActive (false);
 		CameraWeaponTwoStable.gameObject.SetActive (true);
 	}
 
 
 	//STARTING THE WEAPON SELECTION
-	//-----------------------------
+	//----------------------------------------------------------------------------------------------------------------------------------
 
 	public void WeaponStartingLoad(){
-		ScreenTitle.text = ("Pick a weapon");
+		ScreenTitle.text = ("Pick a main weapon");
 		WeaponSelection.gameObject.SetActive (true);
 		FrameItems.gameObject.SetActive (false);
 		SliderFour.gameObject.SetActive (false);
@@ -246,20 +257,22 @@ public class SingleSelectController : MonoBehaviour {
 		SliderThree.value = 41;
 		SliderOne.value = 20;
 		Ammunition.text = ("45");
+		backbutton.gameObject.SetActive (false);
 	}
 		
-	public void NextButton (){
+	public void WeaponNextButton (){
 		WeaponNumber += 1;
-		SelectWeapon ();
+		SelectMainWeapon ();
 	}
 
-	public void BackButton(){
+	public void WeaponBackButton(){
 		WeaponNumber -= 1;
-		SelectWeapon ();
+		SelectMainWeapon ();
 	}
 
-	public void SelectWeapon(){
+	public void SelectMainWeapon(){
 		if (WeaponNumber == 0) {
+			backbutton.gameObject.SetActive (false);
 			GameObject SMGI = Instantiate (SMG);
 			SMGI.gameObject.transform.position = WeaponSpawn.transform.position;
 			WeaponName.text = ("SubMachine");
@@ -276,6 +289,7 @@ public class SingleSelectController : MonoBehaviour {
 		} else {
 			GameObject.DestroyObject (GameObject.FindGameObjectWithTag("SMG"));
 			if (WeaponNumber == 1) {
+				backbutton.gameObject.SetActive (true);
 				GameObject AssaultRifleI = Instantiate (AssaultRifle);
 				AssaultRifleI.gameObject.transform.position = WeaponSpawn.transform.position;
 				WeaponName.text = ("AssaultRifle");
@@ -292,6 +306,7 @@ public class SingleSelectController : MonoBehaviour {
 			} else {
 				GameObject.DestroyObject (GameObject.FindGameObjectWithTag("AssaultRifle"));
 				if (WeaponNumber == 2) {
+					nextbutton.gameObject.SetActive (true);
 					GameObject LMGI = Instantiate (LMG);
 					LMGI.gameObject.transform.position = WeaponSpawn.transform.position;
 					WeaponName.text = ("LightMachine");
@@ -308,6 +323,7 @@ public class SingleSelectController : MonoBehaviour {
 				} else {
 					GameObject.DestroyObject (GameObject.FindGameObjectWithTag("LMG"));
 					if (WeaponNumber == 3) {
+						nextbutton.gameObject.SetActive (false);
 						GameObject LongRifleI = Instantiate (LongRifle);
 						LongRifleI.gameObject.transform.position = WeaponSpawn.transform.position;
 						WeaponName.text = ("SniperRifle");
@@ -328,7 +344,7 @@ public class SingleSelectController : MonoBehaviour {
 			}
 		}
 
-		if (WeaponNumber >= 3) {
+		/*if (WeaponNumber >= 3) {
 			nextbutton.gameObject.SetActive (false);
 		} else {
 			nextbutton.gameObject.SetActive (true);
@@ -338,10 +354,10 @@ public class SingleSelectController : MonoBehaviour {
 			backbutton.gameObject.SetActive (false);
 		} else {
 			backbutton.gameObject.SetActive (true);
-		}
+		}*/
 	}
 
-	public void SelectButton(){
+	public void WeaponSelectButton(){
 		switch (WeaponNumber) {
 		case 0:
 			WeaponSelector = 0;
@@ -363,18 +379,126 @@ public class SingleSelectController : MonoBehaviour {
 	}
 
 	IEnumerator ShoulderAnimation (){
-		//ShoulderStartingLoad ();
+		ShoulderStartingLoad ();
 		CameraWeaponTwoStable.gameObject.SetActive (false);
 		CameraThreeAnimated.gameObject.SetActive (true);
 		yield return new WaitForSeconds (2);
 		CameraThreeAnimated.gameObject.SetActive (false);
 		CameraFourStable.gameObject.SetActive (true);
 	}
+
 	//SHOULDER WEAPON SELECTION
+	//-------------------------------------------------------------------------------------------------------------------------------
 
 	public void ShoulderStartingLoad (){
-
+		ScreenTitle.text = ("Pick a shoulder weapon");
+		ShoulderSpawn = GameObject.FindGameObjectWithTag ("ShoulderSpawn");
+		GameObject EnergyShotI = Instantiate (EnergyShot);
+		WeaponItems = GameObject.FindGameObjectWithTag ("WeaponSelectionItems");
+		WeaponItems.gameObject.SetActive (false);
+		ShoulderItems.gameObject.SetActive (true);
+		Shouldernextbutton = GameObject.FindGameObjectWithTag ("NextButton").GetComponent<Text> ();
+		Shoulderbackbutton = GameObject.FindGameObjectWithTag ("BackButton").GetComponent<Text> ();
+		EnergyShotI.gameObject.transform.position = ShoulderSpawn.transform.position;
+		WeaponName.text = ("Energy Shot");
+		WeaponType.text = ("Type: Beam");
+		//Stats
+		SliderTwo.value = 47;
+		SliderThree.value = 20;
+		SliderOne.value = 37;
+		Ammunition.text = ("∞");
+		Shoulderbackbutton.gameObject.SetActive (false);
 	}
 
+	public void ShoulderNextButton (){
+		ShoulderSelector += 1;
+		SelectShoulderWeapon ();
+	}
 
+	public void ShoulderBackButton(){
+		ShoulderSelector -= 1;
+		SelectShoulderWeapon ();
+	}
+
+	public void SelectShoulderWeapon(){
+		if (ShoulderSelector == 0) {
+			Shoulderbackbutton.gameObject.SetActive (false);
+			GameObject EnergyShotI = Instantiate (EnergyShot);
+			EnergyShotI.gameObject.transform.position = ShoulderSpawn.transform.position;
+			WeaponName.text = ("Energy Shot");
+			WeaponType.text = ("Type: Beam");
+			//Stats
+			SliderOne.value = 37;
+			SliderTwo.value = 47;
+			SliderThree.value = 20;
+			Ammunition.text = ("∞");
+			//DestroyCommands
+			GameObject.DestroyObject (GameObject.FindGameObjectWithTag ("MultiMissle"));
+			GameObject.DestroyObject (GameObject.FindGameObjectWithTag ("QuickShot"));
+
+		} else {
+			GameObject.DestroyObject (GameObject.FindGameObjectWithTag ("EnergyShot"));
+			if (ShoulderSelector == 1) {
+				Shoulderbackbutton.gameObject.SetActive (true);
+				Shouldernextbutton.gameObject.SetActive (true);
+				GameObject MultiMissleI = Instantiate (MultiMissle);
+				MultiMissleI.gameObject.transform.position = ShoulderSpawn.transform.position;
+				WeaponName.text = ("Multi-Missle");
+				WeaponType.text = ("Type: Missle Launcher");
+				//Stats
+				SliderOne.value = 40;
+				SliderTwo.value = 39;
+				SliderThree.value = 27;
+				Ammunition.text = ("35");
+				//DestroyCommands
+				GameObject.DestroyObject (GameObject.FindGameObjectWithTag ("EnergyShot"));
+				GameObject.DestroyObject (GameObject.FindGameObjectWithTag ("QuickShot"));
+
+			} else {
+				GameObject.DestroyObject (GameObject.FindGameObjectWithTag ("MultiMissle"));
+				if (ShoulderSelector == 2) {
+					Shouldernextbutton.gameObject.SetActive (false);
+					GameObject QuickShotI = Instantiate (QuickShot);
+					QuickShotI.gameObject.transform.position = ShoulderSpawn.transform.position;
+					WeaponName.text = ("Quick Shot");
+					WeaponType.text = ("Type: Heavy Rifle");
+					//Stats
+					SliderOne.value = 37;
+					SliderTwo.value = 44;
+					SliderThree.value = 25;
+					Ammunition.text = ("32");
+					//DestroyCommands
+					GameObject.DestroyObject (GameObject.FindGameObjectWithTag ("MultiMissle"));
+					GameObject.DestroyObject (GameObject.FindGameObjectWithTag ("EnergyShot"));
+
+				} 
+			}
+		}
+
+		/*if (ShoulderSelector >= 2) {
+			nextbutton.gameObject.SetActive (false);
+		} else {
+			nextbutton.gameObject.SetActive (true);
+		}
+
+		if (ShoulderSelector <= 0) {
+			backbutton.gameObject.SetActive (false);
+		} else {
+			backbutton.gameObject.SetActive (true);
+		}*/
+	}
+
+	public void ShoulderSelectButton(){
+		switch (ShoulderSelector) {
+		case 0:
+			ShoulderSelector = 0;
+			break;
+		case 1:
+			ShoulderSelector = 1;
+			break;
+		case 2:
+			ShoulderSelector = 2;
+			break;
+		}
+	}
 }
