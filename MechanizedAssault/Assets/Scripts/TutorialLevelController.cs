@@ -26,11 +26,11 @@ public class TutorialLevelController : MonoBehaviour {
 	private GameObject ShoulderSpawn;
 
 	void Start () {
-		GameObject ShoulderWeaponSelect = GameObject.Find ("ShoulderWeaponSelect");
-		ShoulderWeaponSelector SWSC = ShoulderWeaponSelect.GetComponent<ShoulderWeaponSelector> ();
-		Framepick = SWSC.FramePick;
-		WeaponPick = SWSC.WeaponPick;
-		ShoulderPick = SWSC.ShoulderSelect;
+		GameObject SingleSelectController = GameObject.FindGameObjectWithTag ("SingleSelectController");
+		SingleSelectController SSC = SingleSelectController.GetComponent<SingleSelectController> ();
+		Framepick = SSC.FrameSelector;
+		WeaponPick = SSC.WeaponSelector;
+		ShoulderPick = SSC.ShoulderSelector;
 
 		switch (Framepick){
 		case 1:
@@ -46,7 +46,7 @@ public class TutorialLevelController : MonoBehaviour {
 			HeavyFrameI.gameObject.transform.position = SpawnPoint.transform.position;
 			break;
 		}
-		GameObject.DestroyObject (GameObject.Find("ShoulderWeaponSelect"));
+		GameObject.DestroyObject (GameObject.FindGameObjectWithTag("SingleSelectController"));
 		WeaponSpawn = GameObject.FindGameObjectWithTag ("WeaponSpawn");
 		ShoulderSpawn = GameObject.FindGameObjectWithTag ("ShoulderSpawn");
 

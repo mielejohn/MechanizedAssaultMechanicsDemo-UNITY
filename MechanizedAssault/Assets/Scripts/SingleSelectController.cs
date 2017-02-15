@@ -52,6 +52,17 @@ public class SingleSelectController : MonoBehaviour {
 	private Text Shouldernextbutton;
 	private Text Shoulderbackbutton;
 
+	//Flight Pack Items
+	private GameObject FlightPackItems;
+	public int FlightPackSelector;
+	private GameObject FlightPackSpawn;
+	public GameObject StandardFlightPack;
+	public GameObject PulseFlightPack;
+	private Text PulsePack;
+	private Text StandardPack;
+	private GameObject CameraFiveAnimated;
+	private GameObject CameraSixStable;
+
 	//Stat Items
 	//Item1 is Weight
 	private Text LableOne;
@@ -69,6 +80,7 @@ public class SingleSelectController : MonoBehaviour {
 
 	//MISC
 	public Text ScreenTitle;
+	private Text TypeLable;
 	public float time = 0.0f;
 	private GameObject MainCamera;
 
@@ -76,6 +88,9 @@ public class SingleSelectController : MonoBehaviour {
 		FrameItems = GameObject.FindGameObjectWithTag ("FrameSelectionItems");
 		ShoulderItems = GameObject.FindGameObjectWithTag ("ShoulderSelectionItems");
 		ShoulderItems.gameObject.SetActive (false);
+		WeaponSelection = GameObject.FindGameObjectWithTag ("WeaponSelectionItems");
+		FlightPackItems = GameObject.FindGameObjectWithTag ("FlightPackItems");
+		FlightPackSpawn = GameObject.FindGameObjectWithTag ("FlightPackSpawn");
 		FrameType = GameObject.FindGameObjectWithTag ("FrameType").GetComponent<Text> ();
 		ScreenTitle = GameObject.FindGameObjectWithTag ("Title").GetComponent<Text> ();
 		ScreenTitle.text = ("Select your frame");
@@ -105,17 +120,28 @@ public class SingleSelectController : MonoBehaviour {
 		CameraWeaponTwoStable = GameObject.FindGameObjectWithTag ("StableCamera");
 		CameraThreeAnimated = GameObject.FindGameObjectWithTag ("Camerathree");
 		CameraFourStable = GameObject.FindGameObjectWithTag ("CameraFour");
+		CameraFiveAnimated = GameObject.FindGameObjectWithTag ("CameraFive");
+		CameraSixStable = GameObject.FindGameObjectWithTag ("CameraSix");
 		CameraWeaponOneAnimated.gameObject.SetActive (false);
 		CameraWeaponTwoStable.gameObject.SetActive (false);
 		CameraThreeAnimated.gameObject.SetActive (false);
 		CameraFourStable.gameObject.SetActive (false);
-		WeaponSelection = GameObject.FindGameObjectWithTag ("WeaponSelectionItems");
+		CameraFiveAnimated.gameObject.SetActive (false);
+		CameraSixStable.gameObject.SetActive (false);
+		FlightPackSpawn = GameObject.FindGameObjectWithTag ("FlightPackSpawn");
+
 		WeaponSelection.gameObject.SetActive (false);
+		FlightPackItems.gameObject.SetActive (false);
+	
+		TypeLable = GameObject.FindGameObjectWithTag ("TypeLable").GetComponent<Text>();
 	}
 
 	void Update () {
 		time += Time.deltaTime;	
 	}
+
+	//FRAME SELECTION
+	//----------------------------------------------------------------------------------------------------------------------------------
 
 	public void LightFrameSelect(){
 		GameObject LightFrameI = Instantiate (LightFrame);
@@ -241,6 +267,7 @@ public class SingleSelectController : MonoBehaviour {
 
 	public void WeaponStartingLoad(){
 		ScreenTitle.text = ("Pick a main weapon");
+		TypeLable.text = ("Name:");
 		WeaponSelection.gameObject.SetActive (true);
 		FrameItems.gameObject.SetActive (false);
 		SliderFour.gameObject.SetActive (false);
@@ -343,18 +370,6 @@ public class SingleSelectController : MonoBehaviour {
 				}
 			}
 		}
-
-		/*if (WeaponNumber >= 3) {
-			nextbutton.gameObject.SetActive (false);
-		} else {
-			nextbutton.gameObject.SetActive (true);
-		}
-
-		if (WeaponNumber <= 0) {
-			backbutton.gameObject.SetActive (false);
-		} else {
-			backbutton.gameObject.SetActive (true);
-		}*/
 	}
 
 	public void WeaponSelectButton(){
@@ -392,6 +407,7 @@ public class SingleSelectController : MonoBehaviour {
 
 	public void ShoulderStartingLoad (){
 		ScreenTitle.text = ("Pick a shoulder weapon");
+		TypeLable.text = ("Name:");
 		ShoulderSpawn = GameObject.FindGameObjectWithTag ("ShoulderSpawn");
 		GameObject EnergyShotI = Instantiate (EnergyShot);
 		WeaponItems = GameObject.FindGameObjectWithTag ("WeaponSelectionItems");
@@ -474,31 +490,78 @@ public class SingleSelectController : MonoBehaviour {
 				} 
 			}
 		}
-
-		/*if (ShoulderSelector >= 2) {
-			nextbutton.gameObject.SetActive (false);
-		} else {
-			nextbutton.gameObject.SetActive (true);
-		}
-
-		if (ShoulderSelector <= 0) {
-			backbutton.gameObject.SetActive (false);
-		} else {
-			backbutton.gameObject.SetActive (true);
-		}*/
 	}
 
 	public void ShoulderSelectButton(){
 		switch (ShoulderSelector) {
 		case 0:
 			ShoulderSelector = 0;
+			Debug.Log ("Right before the pack animation");
+			StartCoroutine (FlightPackAnimation ());
+			//DontDestroyOnLoad (this);
+			//SceneManager.LoadScene ("TutorialLevel", LoadSceneMode.Single);
 			break;
 		case 1:
 			ShoulderSelector = 1;
+			Debug.Log ("Right before the pack animation");
+			StartCoroutine (FlightPackAnimation ());
+			//DontDestroyOnLoad (this);
+			//SceneManager.LoadScene ("TutorialLevel", LoadSceneMode.Single);
 			break;
 		case 2:
 			ShoulderSelector = 2;
+			Debug.Log ("Right before the pack animation");
+			StartCoroutine( FlightPackAnimation ());
+			//DontDestroyOnLoad (this);
+			//SceneManager.LoadScene ("TutorialLevel", LoadSceneMode.Single);
 			break;
 		}
+	}
+
+	IEnumerator FlightPackAnimation (){
+		Debug.Log ("Starting the animation");
+		FlightPackStartingLoad ();
+		CameraFourStable.gameObject.SetActive (false);
+		CameraFiveAnimated.gameObject.SetActive (true);
+		yield return new WaitForSeconds (2);
+		CameraFiveAnimated.gameObject.SetActive (false);
+		CameraSixStable.gameObject.SetActive (true);
+	}
+
+	//FLIGHT PACK SELECTION
+	//---------------------------------------------------------------------------------------------------------------------------------
+
+	public void FlightPackStartingLoad(){
+		FlightPackItems.gameObject.SetActive (true);
+		ScreenTitle.text = ("Pick a flight pack");
+		ShoulderItems.gameObject.SetActive (false);
+		TypeLable.gameObject.SetActive (false);
+		WeaponName.gameObject.SetActive (false);
+		LableOne.text = ("");
+		SliderOne.gameObject.SetActive (false);
+		LableTwo.text = ("");
+		SliderTwo.gameObject.SetActive (false);
+		LableThree.text = ("");
+		SliderThree.gameObject.SetActive (false);
+		LableFour.text = ("");
+		Ammunition.text = ("");
+	}
+
+	public void StandardPackSelect(){
+		GameObject StandardPackI = Instantiate (StandardFlightPack);
+		StandardPackI.gameObject.transform.position = FlightPackSpawn.transform.position;
+	}
+
+	public void StandardPackDeSelect(){
+		GameObject.Destroy (GameObject.FindGameObjectWithTag ("StandardPack"));
+	}
+
+	public void PulsePackSelect(){
+		GameObject PulsePackI = Instantiate (PulseFlightPack);
+		PulsePackI.gameObject.transform.position = FlightPackSpawn.transform.position;
+	}
+
+	public void PulsePackDeSelect(){
+		GameObject.Destroy (GameObject.FindGameObjectWithTag ("PulsePack"));
 	}
 }
