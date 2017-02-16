@@ -53,11 +53,11 @@ public class SingleSelectController : MonoBehaviour {
 	private Text Shoulderbackbutton;
 
 	//Flight Pack Items
+	public GameObject StandardFlightPack;
+	public GameObject PulseFlightPack;
 	private GameObject FlightPackItems;
 	public int FlightPackSelector;
 	private GameObject FlightPackSpawn;
-	public GameObject StandardFlightPack;
-	public GameObject PulseFlightPack;
 	private Text PulsePack;
 	private Text StandardPack;
 	private GameObject CameraFiveAnimated;
@@ -115,6 +115,8 @@ public class SingleSelectController : MonoBehaviour {
 		WeaponType = GameObject.FindGameObjectWithTag ("WeaponType").GetComponent<Text> ();
 		nextbutton = GameObject.FindGameObjectWithTag ("NextButton").GetComponent<Text> ();
 		backbutton = GameObject.FindGameObjectWithTag ("BackButton").GetComponent<Text> ();
+		//StandardFlightPack = GameObject.FindGameObjectWithTag ("StandardPack");
+		//PulseFlightPack = GameObject.FindGameObjectWithTag ("PulsePack");
 
 		CameraWeaponOneAnimated = GameObject.FindGameObjectWithTag ("AnimationCamera");
 		CameraWeaponTwoStable = GameObject.FindGameObjectWithTag ("StableCamera");
@@ -128,7 +130,7 @@ public class SingleSelectController : MonoBehaviour {
 		CameraFourStable.gameObject.SetActive (false);
 		CameraFiveAnimated.gameObject.SetActive (false);
 		CameraSixStable.gameObject.SetActive (false);
-		FlightPackSpawn = GameObject.FindGameObjectWithTag ("FlightPackSpawn");
+
 
 		WeaponSelection.gameObject.SetActive (false);
 		FlightPackItems.gameObject.SetActive (false);
@@ -533,7 +535,8 @@ public class SingleSelectController : MonoBehaviour {
 
 	public void FlightPackStartingLoad(){
 		FlightPackItems.gameObject.SetActive (true);
-		ScreenTitle.text = ("Pick a flight pack");
+		ScreenTitle.text = ("Select a flight pack");
+		FlightPackSpawn = GameObject.FindGameObjectWithTag ("FlightPackSpawn");
 		ShoulderItems.gameObject.SetActive (false);
 		TypeLable.gameObject.SetActive (false);
 		WeaponName.gameObject.SetActive (false);
@@ -550,18 +553,34 @@ public class SingleSelectController : MonoBehaviour {
 	public void StandardPackSelect(){
 		GameObject StandardPackI = Instantiate (StandardFlightPack);
 		StandardPackI.gameObject.transform.position = FlightPackSpawn.transform.position;
+		WeaponType.text = ("Standard Pack");
+	}
+
+	public void StandardPackClick(){
+		FlightPackSelector += 1;
+		DontDestroyOnLoad (this);
+		SceneManager.LoadScene ("TutorialLevel", LoadSceneMode.Single);
 	}
 
 	public void StandardPackDeSelect(){
 		GameObject.Destroy (GameObject.FindGameObjectWithTag ("StandardPack"));
+		WeaponType.text = ("");
 	}
 
 	public void PulsePackSelect(){
 		GameObject PulsePackI = Instantiate (PulseFlightPack);
 		PulsePackI.gameObject.transform.position = FlightPackSpawn.transform.position;
+		WeaponType.text = ("Pulse Pack");
+	}
+
+	public void PulsePackClick(){
+		FlightPackSelector += 2;
+		DontDestroyOnLoad (this);
+		SceneManager.LoadScene ("TutorialLevel", LoadSceneMode.Single);
 	}
 
 	public void PulsePackDeSelect(){
 		GameObject.Destroy (GameObject.FindGameObjectWithTag ("PulsePack"));
+		WeaponType.text = ("");
 	}
 }

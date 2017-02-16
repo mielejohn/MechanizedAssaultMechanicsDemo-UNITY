@@ -7,6 +7,7 @@ public class TutorialLevelController : MonoBehaviour {
 	public int Framepick;
 	public int WeaponPick;
 	public int ShoulderPick;
+	public int FlightPackPick;
 	//Frames
 	public GameObject LightFrame;
 	public GameObject MediumFrame;
@@ -20,10 +21,19 @@ public class TutorialLevelController : MonoBehaviour {
 	public GameObject EnergyShot;
 	public GameObject QuickShot;
 	public GameObject MultiMissle;
+	//FlightPack
+	public GameObject StandardPack;
+	public GameObject PulsePack;
+	//Picked Items
+	public GameObject PickedFrame;
+	public GameObject PickedMainWeapon;
+	public GameObject PickedShoulder;
+	public GameObject PickedFlightPack;
 	//spawns
 	public GameObject SpawnPoint;
 	private GameObject WeaponSpawn;
 	private GameObject ShoulderSpawn;
+	private GameObject PackSpawn;
 
 	void Start () {
 		GameObject SingleSelectController = GameObject.FindGameObjectWithTag ("SingleSelectController");
@@ -31,56 +41,83 @@ public class TutorialLevelController : MonoBehaviour {
 		Framepick = SSC.FrameSelector;
 		WeaponPick = SSC.WeaponSelector;
 		ShoulderPick = SSC.ShoulderSelector;
+		FlightPackPick = SSC.FlightPackSelector;
 
 		switch (Framepick){
 		case 1:
-			GameObject LightFrameI = Instantiate (LightFrame);
-			LightFrameI.gameObject.transform.position = SpawnPoint.transform.position;
+			Instantiate (LightFrame);
+			LightFrame.gameObject.transform.position = SpawnPoint.transform.position;
+			PickedFrame = LightFrame;
 			break;
 		case 2:
-			GameObject MediumFrameI = Instantiate (MediumFrame);
-			MediumFrameI.gameObject.transform.position = SpawnPoint.transform.position;
+			Instantiate (MediumFrame);
+			MediumFrame.gameObject.transform.position = SpawnPoint.transform.position;
+			PickedFrame = MediumFrame;
 			break;
 		case 3:
-			GameObject HeavyFrameI = Instantiate (HeavyFrame);
-			HeavyFrameI.gameObject.transform.position = SpawnPoint.transform.position;
+			Instantiate (HeavyFrame);
+			HeavyFrame.gameObject.transform.position = SpawnPoint.transform.position;
+			PickedFrame = HeavyFrame;
 			break;
 		}
 		GameObject.DestroyObject (GameObject.FindGameObjectWithTag("SingleSelectController"));
 		WeaponSpawn = GameObject.FindGameObjectWithTag ("WeaponSpawn");
 		ShoulderSpawn = GameObject.FindGameObjectWithTag ("ShoulderSpawn");
+		PackSpawn = GameObject.FindGameObjectWithTag ("FlightPackSpawn");
 
 		switch (WeaponPick) {
 		case 0:
-			GameObject SMGI = Instantiate (SMG);
-			SMGI.gameObject.transform.position = WeaponSpawn.transform.position;
+			Instantiate (SMG);
+			SMG.gameObject.transform.position = WeaponSpawn.transform.position;
+			PickedMainWeapon = SMG;
 			break;
 		case 1:
-			GameObject AssaultRifleI = Instantiate (AssaultRifle);
-			AssaultRifleI.gameObject.transform.position = WeaponSpawn.transform.position;
+			Instantiate (AssaultRifle);
+			AssaultRifle.gameObject.transform.position = WeaponSpawn.transform.position;
+			PickedMainWeapon = AssaultRifle;
 			break;
 		case 2:
-			GameObject LMGI = Instantiate (LMG);
-			LMGI.gameObject.transform.position = WeaponSpawn.transform.position;
+			Instantiate (LMG);
+			LMG.gameObject.transform.position = WeaponSpawn.transform.position;
+			PickedMainWeapon = LMG;
 			break;
 		case 3:
-			GameObject LongRifleI = Instantiate (LongRifle);
-			LongRifleI.gameObject.transform.position = WeaponSpawn.transform.position;
+			Instantiate (LongRifle);
+			LongRifle.gameObject.transform.position = WeaponSpawn.transform.position;
+			PickedMainWeapon = LongRifle;
 			break;
 		}
 
 		switch (ShoulderPick) {
 		case 0:
-			GameObject EnergyShotI = Instantiate (EnergyShot);
-			EnergyShotI.gameObject.transform.position = ShoulderSpawn.transform.position;
+			Instantiate (EnergyShot);
+			EnergyShot.gameObject.transform.position = ShoulderSpawn.transform.position;
+			PickedShoulder = EnergyShot;
 			break;
 		case 1:
-			GameObject MultiMissleI = Instantiate (MultiMissle);
-			MultiMissleI.gameObject.transform.position = ShoulderSpawn.transform.position;
+			Instantiate (MultiMissle);
+			MultiMissle.gameObject.transform.position = ShoulderSpawn.transform.position;
+			PickedShoulder = MultiMissle;
 			break;
 		case 2:
-			GameObject QuickShotI = Instantiate (QuickShot);
-			QuickShotI.gameObject.transform.position = ShoulderSpawn.transform.position;
+			Instantiate (QuickShot);
+			QuickShot.gameObject.transform.position = ShoulderSpawn.transform.position;
+			PickedShoulder = QuickShot;
+			break;
+		}
+
+		switch (FlightPackPick) {
+		case 1:
+			Instantiate (StandardPack);
+			StandardPack.gameObject.transform.position = PackSpawn.transform.position;
+			PickedFlightPack = StandardPack;
+			SetParent (PickedFrame);
+			break;
+		case 2:
+			Instantiate (PulsePack);
+			PulsePack.gameObject.transform.position = PackSpawn.transform.position;
+			PickedFlightPack = PulsePack;
+			SetParent (PickedFrame);
 			break;
 		}
 	}
@@ -88,5 +125,11 @@ public class TutorialLevelController : MonoBehaviour {
 
 	void Update () {
 		
+	}
+
+	public void SetParent (GameObject PickedFrame){
+		PickedMainWeapon.transform.parent = PickedFrame.transform;
+		PickedShoulder.transform.parent = PickedFrame.transform;
+		PickedFlightPack.transform.parent = PickedFrame.transform;
 	}
 }
