@@ -146,10 +146,12 @@ public class SingleSelectController : MonoBehaviour {
 	//----------------------------------------------------------------------------------------------------------------------------------
 
 	public void LightFrameSelect(){
+
 		GameObject LightFrameI = Instantiate (LightFrame);
 		LightFrameI.gameObject.transform.position = FrameSpawn.transform.position;
 		PlayerCamera = GameObject.FindGameObjectWithTag ("PlayerCamera");
 		PlayerCamera.SetActive (false);
+
 		FrameType.text = ("M.I.S.C.U. Dash");
 
 		SliderOne.value = 20;
@@ -159,13 +161,13 @@ public class SingleSelectController : MonoBehaviour {
 	}
 
 	public void LightFrameClick(){
+
 		GameObject LightFrameI = Instantiate (LightFrame);
 		LightFrameI.gameObject.transform.position = FrameSpawn.transform.position;
 		PlayerCamera = GameObject.FindGameObjectWithTag ("PlayerCamera");
 		PlayerCamera.SetActive (false);
 		FrameSelector += 1;
-		MainCamera = GameObject.FindGameObjectWithTag ("MainCamera");
-		MainCamera.gameObject.SetActive (false);
+
 
 		StartCoroutine(AnimationStart());
 	}
@@ -181,10 +183,12 @@ public class SingleSelectController : MonoBehaviour {
 	}
 
 	public void MediumFrameSelect(){
+
 		GameObject MediumFrameI = Instantiate (MediumFrame);
 		MediumFrameI.gameObject.transform.position = FrameSpawn.transform.position;
 		PlayerCamera = GameObject.FindGameObjectWithTag ("PlayerCamera");
 		PlayerCamera.SetActive (false);
+
 		FrameType.text = ("M.I.S.C.U. Assault");
 
 		SliderOne.value = 27;
@@ -194,10 +198,12 @@ public class SingleSelectController : MonoBehaviour {
 	}
 
 	public void MediumFrameClick(){
+
 		GameObject MediumFrameI = Instantiate (MediumFrame);
 		MediumFrameI.gameObject.transform.position = FrameSpawn.transform.position;
 		PlayerCamera = GameObject.FindGameObjectWithTag ("PlayerCamera");
 		PlayerCamera.SetActive (false);
+
 		FrameSelector += 2;
 		MainCamera = GameObject.FindGameObjectWithTag ("MainCamera");
 		MainCamera.gameObject.SetActive (false);
@@ -217,10 +223,12 @@ public class SingleSelectController : MonoBehaviour {
 	}
 
 	public void HeavyFrameSelect(){
+
 		GameObject HeavyFrameI = Instantiate (HeavyFrame);
 		HeavyFrameI.gameObject.transform.position = FrameSpawn.transform.position;
 		PlayerCamera = GameObject.FindGameObjectWithTag ("PlayerCamera");
 		PlayerCamera.SetActive (false);
+
 		FrameType.text = ("M.I.S.C.U. Support");
 		Debug.Log ("MouseOver");
 
@@ -232,10 +240,12 @@ public class SingleSelectController : MonoBehaviour {
 
 	public void HeavyFrameClick(){
 		//Debug.Log  ("HeavyFrameClickStart");
+
 		GameObject HeavyFrameI = Instantiate (HeavyFrame);
 		HeavyFrameI.gameObject.transform.position = FrameSpawn.transform.position;
 		PlayerCamera = GameObject.FindGameObjectWithTag ("PlayerCamera");
 		PlayerCamera.SetActive (false);
+
 		FrameSelector += 3;
 		MainCamera = GameObject.FindGameObjectWithTag ("MainCamera");
 		MainCamera.gameObject.SetActive (false);
