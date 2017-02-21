@@ -21,7 +21,7 @@ public class SingleSelectController : MonoBehaviour {
 	private Text LightButton;
 	private Text MediumButton;
 	private Text HeavyButton;
-	private GameObject PlayerCamera;
+	//private GameObject PlayerCamera;
 
 	//Weapon Items
 	private GameObject WeaponItems;
@@ -149,8 +149,9 @@ public class SingleSelectController : MonoBehaviour {
 
 		GameObject LightFrameI = Instantiate (LightFrame);
 		LightFrameI.gameObject.transform.position = FrameSpawn.transform.position;
-		PlayerCamera = GameObject.FindGameObjectWithTag ("PlayerCamera");
-		PlayerCamera.SetActive (false);
+		//LightFrameI.GetComponent<Rigidbody> ().Sleep ();
+		//PlayerCamera = GameObject.FindGameObjectWithTag ("PlayerCamera");
+		//PlayerCamera.SetActive (false);
 
 		FrameType.text = ("M.I.S.C.U. Dash");
 
@@ -164,8 +165,9 @@ public class SingleSelectController : MonoBehaviour {
 
 		GameObject LightFrameI = Instantiate (LightFrame);
 		LightFrameI.gameObject.transform.position = FrameSpawn.transform.position;
-		PlayerCamera = GameObject.FindGameObjectWithTag ("PlayerCamera");
-		PlayerCamera.SetActive (false);
+		//LightFrameI.GetComponent<Rigidbody> ();
+//		PlayerCamera = GameObject.FindGameObjectWithTag ("PlayerCamera");
+		//PlayerCamera.SetActive (false);
 		FrameSelector += 1;
 
 
@@ -186,8 +188,9 @@ public class SingleSelectController : MonoBehaviour {
 
 		GameObject MediumFrameI = Instantiate (MediumFrame);
 		MediumFrameI.gameObject.transform.position = FrameSpawn.transform.position;
-		PlayerCamera = GameObject.FindGameObjectWithTag ("PlayerCamera");
-		PlayerCamera.SetActive (false);
+		//MediumFrameI.GetComponent<Rigidbody> ().Sleep ();
+		//PlayerCamera = GameObject.FindGameObjectWithTag ("PlayerCamera");
+		//PlayerCamera.SetActive (false);
 
 		FrameType.text = ("M.I.S.C.U. Assault");
 
@@ -201,8 +204,9 @@ public class SingleSelectController : MonoBehaviour {
 
 		GameObject MediumFrameI = Instantiate (MediumFrame);
 		MediumFrameI.gameObject.transform.position = FrameSpawn.transform.position;
-		PlayerCamera = GameObject.FindGameObjectWithTag ("PlayerCamera");
-		PlayerCamera.SetActive (false);
+		//MediumFrameI.GetComponent<Rigidbody> ().Sleep ();
+		//PlayerCamera = GameObject.FindGameObjectWithTag ("PlayerCamera");
+		//PlayerCamera.SetActive (false);
 
 		FrameSelector += 2;
 		MainCamera = GameObject.FindGameObjectWithTag ("MainCamera");
@@ -226,8 +230,9 @@ public class SingleSelectController : MonoBehaviour {
 
 		GameObject HeavyFrameI = Instantiate (HeavyFrame);
 		HeavyFrameI.gameObject.transform.position = FrameSpawn.transform.position;
-		PlayerCamera = GameObject.FindGameObjectWithTag ("PlayerCamera");
-		PlayerCamera.SetActive (false);
+		//HeavyFrameI.GetComponent<Rigidbody> ().Sleep ();
+		//PlayerCamera = GameObject.FindGameObjectWithTag ("PlayerCamera");
+		//PlayerCamera.SetActive (false);
 
 		FrameType.text = ("M.I.S.C.U. Support");
 		Debug.Log ("MouseOver");
@@ -243,8 +248,9 @@ public class SingleSelectController : MonoBehaviour {
 
 		GameObject HeavyFrameI = Instantiate (HeavyFrame);
 		HeavyFrameI.gameObject.transform.position = FrameSpawn.transform.position;
-		PlayerCamera = GameObject.FindGameObjectWithTag ("PlayerCamera");
-		PlayerCamera.SetActive (false);
+		//HeavyFrameI.GetComponent<Rigidbody> ().Sleep ();
+		//PlayerCamera = GameObject.FindGameObjectWithTag ("PlayerCamera");
+		//PlayerCamera.SetActive (false);
 
 		FrameSelector += 3;
 		MainCamera = GameObject.FindGameObjectWithTag ("MainCamera");
